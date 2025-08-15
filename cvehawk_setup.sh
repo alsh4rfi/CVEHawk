@@ -7,6 +7,7 @@
 
 set -e  # Exit on error
 
+# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -15,6 +16,7 @@ MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+# Banner
 echo -e "${CYAN}"
 echo "╔══════════════════════════════════════════════════════════════════╗"
 echo "║               CVEHawk System-Wide Installer v2.1                 ║"
@@ -26,15 +28,18 @@ echo "║                    Twitter: @alsh4rfi                            ║"
 echo "╚══════════════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
 
+# Check if running with sudo
 if [ "$EUID" -ne 0 ]; then 
     echo -e "${YELLOW}[!] This script needs sudo privileges to install system-wide${NC}"
     echo -e "${BLUE}[*] Re-running with sudo...${NC}"
     exec sudo "$0" "$@"
 fi
 
+# Detect the script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CVEHAWK_SCRIPT="$SCRIPT_DIR/cvehawk.py"
 
+# Check if cvehawk.py exists
 if [ ! -f "$CVEHAWK_SCRIPT" ]; then
     echo -e "${RED}[ERROR] cvehawk.py not found in current directory!${NC}"
     echo -e "${YELLOW}[INFO] Please run this script from the CVEHawk directory${NC}"
@@ -43,6 +48,7 @@ fi
 
 echo -e "${GREEN}[✓] Found cvehawk.py at: $CVEHAWK_SCRIPT${NC}"
 
+# Check Python3 installation
 echo -e "${BLUE}[*] Checking Python installation...${NC}"
 if ! command -v python3 &> /dev/null; then
     echo -e "${RED}[ERROR] Python3 is not installed!${NC}"
@@ -53,32 +59,40 @@ fi
 PYTHON_PATH=$(which python3)
 echo -e "${GREEN}[✓] Python3 found at: $PYTHON_PATH${NC}"
 
+# Install directory
 INSTALL_DIR="/opt/cvehawk"
 BIN_PATH="/usr/local/bin/cvehawk"
 
+# Create installation directory
 echo -e "${BLUE}[*] Creating installation directory...${NC}"
 mkdir -p "$INSTALL_DIR"
 
+# Copy CVEHawk files to installation directory
 echo -e "${BLUE}[*] Copying CVEHawk files...${NC}"
 cp "$CVEHAWK_SCRIPT" "$INSTALL_DIR/"
 
+# Copy config file if it exists
 if [ -f "$SCRIPT_DIR/cvehawk.yaml" ]; then
     cp "$SCRIPT_DIR/cvehawk.yaml" "$INSTALL_DIR/"
     echo -e "${GREEN}[✓] Configuration file copied${NC}"
 fi
 
+# Create reports directory
 mkdir -p "$INSTALL_DIR/cvehawk_reports"
 chmod 755 "$INSTALL_DIR/cvehawk_reports"
 
+# Install Python dependencies
 echo -e "${BLUE}[*] Installing Python dependencies...${NC}"
 pip3 install requests >/dev/null 2>&1 || true
 
+# Install optional dependencies
 echo -e "${BLUE}[*] Installing optional dependencies...${NC}"
 OPTIONAL_PACKAGES="pyyaml"
 for package in $OPTIONAL_PACKAGES; do
     pip3 install $package >/dev/null 2>&1 && echo -e "${GREEN}[✓] Installed $package${NC}" || echo -e "${YELLOW}[!] Could not install $package (optional)${NC}"
 done
 
+# Create wrapper script
 echo -e "${BLUE}[*] Creating wrapper script...${NC}"
 cat > "$BIN_PATH" << 'EOF'
 #!/bin/bash
@@ -96,12 +110,19 @@ else
 fi
 EOF
 
+# Set permissions - Make executable by all users
+echo -e "${BLUE}[*] Setting permissions...${NC}"
 chmod +x "$BIN_PATH"
-chmod +x "$INSTALL_DIR/cvehawk.py"
+chmod 777 "$INSTALL_DIR/cvehawk.py"  # Allow all users to execute
+chmod 755 "$INSTALL_DIR"  # Directory accessible by all users
+echo -e "${GREEN}[✓] Set full execution permissions for all users${NC}"
 
+# Create system-wide config directory
 CONFIG_DIR="/etc/cvehawk"
 mkdir -p "$CONFIG_DIR"
+chmod 755 "$CONFIG_DIR"  # Make config directory readable by all
 
+# Create default config if doesn't exist
 if [ ! -f "$CONFIG_DIR/cvehawk.yaml" ]; then
     cat > "$CONFIG_DIR/cvehawk.yaml" << 'EOF'
 # CVEHawk System Configuration
@@ -126,9 +147,11 @@ search:
   search_timeout: 30
   alternative_platforms: true
 EOF
+    chmod 644 "$CONFIG_DIR/cvehawk.yaml"  # Make config readable by all
     echo -e "${GREEN}[✓] Created default configuration at $CONFIG_DIR/cvehawk.yaml${NC}"
 fi
 
+# Create man page (optional)
 echo -e "${BLUE}[*] Creating man page...${NC}"
 MAN_DIR="/usr/local/share/man/man1"
 mkdir -p "$MAN_DIR"
@@ -193,6 +216,7 @@ EOF
 gzip -f "$MAN_DIR/cvehawk.1"
 echo -e "${GREEN}[✓] Man page created (use 'man cvehawk' to view)${NC}"
 
+# Create uninstall script
 echo -e "${BLUE}[*] Creating uninstall script...${NC}"
 cat > "$INSTALL_DIR/uninstall.sh" << 'EOF'
 #!/bin/bash
@@ -210,6 +234,7 @@ echo "- Abdullah Al-Sharafi (@alsh4rfi)"
 EOF
 chmod +x "$INSTALL_DIR/uninstall.sh"
 
+# Verify installation
 echo -e "${BLUE}[*] Verifying installation...${NC}"
 if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo -e "${GREEN}[✓] CVEHawk successfully installed!${NC}"
@@ -231,6 +256,10 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo "  System config: /etc/cvehawk/cvehawk.yaml"
     echo "  Installation: /opt/cvehawk/"
     echo ""
+    echo -e "${GREEN}Permissions:${NC}"
+    echo "  ✓ CVEHawk is executable by ALL users"
+    echo "  ✓ No sudo required to run cvehawk"
+    echo ""
     echo -e "${YELLOW}Uninstall:${NC}"
     echo "  sudo /opt/cvehawk/uninstall.sh"
     echo ""
@@ -240,8 +269,17 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo "  Twitter:   https://twitter.com/alsh4rfi"
     echo ""
     
+    # Test the installation
     echo -e "${BLUE}[*] Testing installation...${NC}"
     cvehawk --version 2>/dev/null && echo -e "${GREEN}[✓] CVEHawk is working correctly!${NC}" || echo -e "${YELLOW}[!] Test failed, but installation completed${NC}"
+    
+    # Test permissions
+    echo -e "${BLUE}[*] Testing permissions...${NC}"
+    if [ -r "$INSTALL_DIR/cvehawk.py" ] && [ -x "$INSTALL_DIR/cvehawk.py" ]; then
+        echo -e "${GREEN}[✓] All users can execute CVEHawk${NC}"
+    else
+        echo -e "${YELLOW}[!] Permission check warning${NC}"
+    fi
 else
     echo -e "${RED}[ERROR] Installation failed!${NC}"
     exit 1
