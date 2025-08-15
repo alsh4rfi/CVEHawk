@@ -51,7 +51,7 @@ cvehawk --config myconfig.yml
 ## 🛠 Installation
 
 ```bash
-git clone https://github.com/yourusername/cvehawk.git
+git clone https://github.com/alsh4rfi/cvehawk.git
 cd cvehawk
 pip install -r requirements.txt
 ```
