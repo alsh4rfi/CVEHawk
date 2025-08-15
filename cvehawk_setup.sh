@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # CVEHawk System-Wide Installation Script
 # Script made by Abdullah Al-Sharafi
@@ -26,7 +26,7 @@ echo "║                    Twitter: @alsh4rfi                            ║"
 echo "╚══════════════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
 
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
     echo -e "${YELLOW}[!] This script needs sudo privileges to install system-wide${NC}"
     echo -e "${BLUE}[*] Re-running with sudo...${NC}"
     exec sudo "$0" "$@"
@@ -81,14 +81,12 @@ done
 
 echo -e "${BLUE}[*] Creating wrapper script...${NC}"
 cat > "$BIN_PATH" << 'EOF'
-#!/bin/bash
+#!/usr/bin/env bash
 # CVEHawk wrapper script
 # Created by Abdullah Al-Sharafi (@alsh4rfi)
 
-# Get the real path of the script
 SCRIPT_PATH="/opt/cvehawk/cvehawk.py"
 
-# Check if running with no arguments
 if [ $# -eq 0 ]; then
     python3 "$SCRIPT_PATH" -h
 else
@@ -169,22 +167,13 @@ Export formats (json,html,csv)
 \fB\-t\fR, \fB\-\-threads\fR \fINUM\fR
 Number of threads for parallel processing (default: 5)
 .SH EXAMPLES
-.TP
-Basic CVE lookup:
 cvehawk -c CVE-2021-44228
-.TP
-Search for vulnerabilities:
 cvehawk --search "remote code execution" --year 2024 --limit 5
-.TP
-Export results:
 cvehawk -c CVE-2021-44228 --export json,html
 .SH AUTHOR
 Created by Abdullah Al-Sharafi (@alsh4rfi)
-.br
 GitHub: https://github.com/alsh4rfi
-.br
 Instagram: https://instagram.com/alsh4rfi
-.br
 Twitter: https://twitter.com/alsh4rfi
 .SH SEE ALSO
 Project repository: https://github.com/alsh4rfi/cvehawk
@@ -195,7 +184,7 @@ echo -e "${GREEN}[✓] Man page created (use 'man cvehawk' to view)${NC}"
 
 echo -e "${BLUE}[*] Creating uninstall script...${NC}"
 cat > "$INSTALL_DIR/uninstall.sh" << 'EOF'
-#!/bin/bash
+#!/usr/bin/env bash
 # CVEHawk Uninstaller
 # Created by Abdullah Al-Sharafi (@alsh4rfi)
 
@@ -239,7 +228,7 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo "  Instagram: https://instagram.com/alsh4rfi"
     echo "  Twitter:   https://twitter.com/alsh4rfi"
     echo ""
-    
+
     echo -e "${BLUE}[*] Testing installation...${NC}"
     cvehawk --version 2>/dev/null && echo -e "${GREEN}[✓] CVEHawk is working correctly!${NC}" || echo -e "${YELLOW}[!] Test failed, but installation completed${NC}"
 else
