@@ -29,10 +29,10 @@ It goes beyond basic CVE lookups by:
 
 ```bash
 # Basic CVE lookup
-cvehawk CVE-2024-12345
+cvehawk -c CVE-2024-12345
 
 # Lookup multiple CVEs and export to HTML
-cvehawk -cves CVE-2023-4567 CVE-2024-9876 --export html
+cvehawk -f cves.txt --export html
 
 # Use custom config
 cvehawk --config myconfig.yml
