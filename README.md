@@ -26,18 +26,24 @@ It goes beyond basic CVE lookups by:
 ---
 
 ## 🚀 Example Usage
-
+### Linux
 ```bash
-# Basic CVE lookup
-cvehawk -c CVE-2024-12345
+# Clone the repository
+git clone https://github.com/alsh4rfi/cvehawk.git
+cd cvehawk
 
-# Lookup multiple CVEs and export to HTML
-cvehawk -f cves.txt --export html
-
-# Use custom config
-cvehawk --config myconfig.yml
+# Run the installer
+chmod +x cvehawk_setup.sh
+sudo ./cvehawk_setup.sh
 ```
+### Windows
+```bash
+git clone https://github.com/alsh4rfi/cvehawk.git
+cd cvehawk
 
+# Run as Administrator
+python3 cvehawk.py
+```
 ---
 
 ## 📦 Export Formats
