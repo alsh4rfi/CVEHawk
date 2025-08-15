@@ -31,6 +31,7 @@ It goes beyond basic CVE lookups by:
 # Clone the repository
 git clone https://github.com/alsh4rfi/cvehawk.git
 cd cvehawk
+pip install -r requirements.txt
 
 # Run the installer
 chmod 777 cvehawk_setup.sh
@@ -55,16 +56,6 @@ python3 cvehawk.py -c CVE-1234-1234
 * **HTML** — interactive, styled professional reports
 * **CSV** — spreadsheet-ready vulnerability data
 * **JSON** — for pipelines, dashboards, and automation
-
----
-
-## 🛠 Installation
-
-```bash
-git clone https://github.com/alsh4rfi/cvehawk.git
-cd cvehawk
-pip install -r requirements.txt
-```
 
 ---
 
