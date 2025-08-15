@@ -25,7 +25,7 @@ It goes beyond basic CVE lookups by:
 
 ---
 
-## 🚀 Example Usage
+## 🚀 Installation
 ### Linux
 ```bash
 # Clone the repository
