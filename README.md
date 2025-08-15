@@ -33,16 +33,20 @@ git clone https://github.com/alsh4rfi/cvehawk.git
 cd cvehawk
 
 # Run the installer
-chmod +x cvehawk_setup.sh
+chmod 777 cvehawk_setup.sh
 sudo ./cvehawk_setup.sh
+
+# Run the application
+cvehawk -c CVE-1234-1234
 ```
 ### Windows
 ```bash
+# Clone the repository
 git clone https://github.com/alsh4rfi/cvehawk.git
 cd cvehawk
 
 # Run as Administrator
-python3 cvehawk.py
+python3 cvehawk.py -c CVE-1234-1234
 ```
 ---
 
