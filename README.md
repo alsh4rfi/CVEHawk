@@ -1,4 +1,4 @@
-# 🦅 CVE Hawk — Advanced CVE Lookup for the Command Line
+# 🦅 CVE Hawk - Advanced CVE Lookup for the Command Line
 
 **CVE Hawk** is a **blazing-fast**, **multi-threaded** vulnerability intelligence tool designed for security researchers, pentesters, and sysadmins who want **all their CVE hunting power right in the terminal**.
 
@@ -7,7 +7,7 @@ It goes beyond basic CVE lookups by:
 * 📡 **Live data** from NVD, GitHub, Exploit-DB, PacketStorm, Rapid7, and more
 * 🔍 **Smart POC detection** with advanced ranking & quality analysis
 * 📊 **EPSS integration** for exploit prediction scoring
-* 💾 **Export in HTML, CSV, or JSON** — ready for reports or dashboards
+* 💾 **Export in HTML, CSV, or JSON** - ready for reports or dashboards
 * ⚡ **Multi-platform proof-of-concept search** with intelligent filtering
 * 🎯 **Relevance scoring** so the best POCs are always on top
 
@@ -53,15 +53,15 @@ python3 cvehawk.py -c CVE-1234-1234
 
 ## 📦 Export Formats
 
-* **HTML** — interactive, styled professional reports
-* **CSV** — spreadsheet-ready vulnerability data
-* **JSON** — for pipelines, dashboards, and automation
+* **HTML** - interactive, styled professional reports
+* **CSV** - spreadsheet-ready vulnerability data
+* **JSON** - for pipelines, dashboards, and automation
 
 ---
 
 ## 📜 License
 
-MIT — use it, modify it, and spread the knowledge.
+MIT - use it, modify it, and spread the knowledge.
 
 ---
 
