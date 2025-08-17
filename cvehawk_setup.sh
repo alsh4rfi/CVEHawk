@@ -2,7 +2,7 @@
 
 # CVEHawk System-Wide Installation Script
 # Script made by Abdullah Al-Sharafi
-# GitHub: @alsh4rfi | Instagram: @alsh4rfi | Twitter: @alsh4rfi
+# GitHub: @alsh4rfi | Instagram: @alsh4rfi | x: @alsh4rfi
 # This script installs CVEHawk to make it accessible from anywhere
 
 set -e  # Exit on error
@@ -22,7 +22,7 @@ echo "║                                                                   ║"
 echo "║              Script made by Abdullah Al-Sharafi                  ║"
 echo "║                                                                   ║"
 echo "║         GitHub: @alsh4rfi | Instagram: @alsh4rfi                 ║"
-echo "║                    Twitter: @alsh4rfi                            ║"
+echo "║                    x: @alsh4rfi                                   ║"
 echo "╚══════════════════════════════════════════════════════════════════╝"
 echo -e "${NC}"
 
@@ -174,7 +174,7 @@ cvehawk -c CVE-2021-44228 --export json,html
 Created by Abdullah Al-Sharafi (@alsh4rfi)
 GitHub: https://github.com/alsh4rfi
 Instagram: https://instagram.com/alsh4rfi
-Twitter: https://twitter.com/alsh4rfi
+x: https://x.com/alsh4rfi
 .SH SEE ALSO
 Project repository: https://github.com/alsh4rfi/cvehawk
 EOF
@@ -208,7 +208,7 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo -e "${CYAN}║                                                                   ║${NC}"
     echo -e "${CYAN}║                Created by Abdullah Al-Sharafi                    ║${NC}"
     echo -e "${CYAN}║                                                                   ║${NC}"
-    echo -e "${CYAN}║    ${MAGENTA}GitHub:${NC} ${CYAN}@alsh4rfi  ${MAGENTA}Instagram:${NC} ${CYAN}@alsh4rfi  ${MAGENTA}Twitter:${NC} ${CYAN}@alsh4rfi    ║${NC}"
+    echo -e "${CYAN}║    ${MAGENTA}GitHub:${NC} ${CYAN}@alsh4rfi  ${MAGENTA}Instagram:${NC} ${CYAN}@alsh4rfi  ${MAGENTA}x:${NC} ${CYAN}@alsh4rfi    ║${NC}"
     echo -e "${CYAN}╚══════════════════════════════════════════════════════════════════╝${NC}"
     echo ""
     echo -e "${YELLOW}Usage:${NC}"
@@ -226,7 +226,7 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo -e "${MAGENTA}Follow Abdullah Al-Sharafi for updates:${NC}"
     echo "  GitHub:    https://github.com/alsh4rfi"
     echo "  Instagram: https://instagram.com/alsh4rfi"
-    echo "  Twitter:   https://x.com/alsh4rfi"
+    echo "  x:   https://x.com/alsh4rfi"
     echo ""
 
     echo -e "${BLUE}[*] Testing installation...${NC}"
