@@ -226,7 +226,7 @@ if [ -f "$BIN_PATH" ] && [ -x "$BIN_PATH" ]; then
     echo -e "${MAGENTA}Follow Abdullah Al-Sharafi for updates:${NC}"
     echo "  GitHub:    https://github.com/alsh4rfi"
     echo "  Instagram: https://instagram.com/alsh4rfi"
-    echo "  Twitter:   https://twitter.com/alsh4rfi"
+    echo "  Twitter:   https://x.com/alsh4rfi"
     echo ""
 
     echo -e "${BLUE}[*] Testing installation...${NC}"
